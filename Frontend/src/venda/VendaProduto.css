@@ -1,0 +1,53 @@
+.venda-container {
+  background-color: #f5faff;
+  padding: 30px;
+  width: 400px;
+  margin: 60px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.venda-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.venda-container label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.venda-container select,
+.venda-container input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.venda-container button {
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: none;
+  background-color: #2e8b57;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.venda-container button:hover {
+  background-color: #246b45;
+}
+
+.mensagem {
+  background-color: #f0f8ff;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #333;
+}

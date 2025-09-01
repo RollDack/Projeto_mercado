@@ -1,0 +1,63 @@
+.navbar {
+  background-color: #000000; /* fundo preto
+  padding: 16px 32px;
+  color: #1976d2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #1976d2;
+}
+
+.nav-links a {
+  margin-left: 20px;
+  color: #1976d2; /* azul escuro visível */
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #f39c12; /* Laranja no hover */
+  text-decoration: underline;
+}
+td button {
+  margin-right: 8px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+td button:first-child {
+  background-color: #007bff;
+  color: white;
+}
+
+td button:last-child {
+  background-color: #dc3545;
+  color: white;
+}
+.voltar-btn {
+  margin-top: 15px;
+  background-color: #6c63ff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.voltar-btn:hover {
+  background-color: #574fd1;
+}
+
+

@@ -1,0 +1,71 @@
+.detalhes-container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 450px;
+  margin: 60px auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.detalhes-container:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.detalhes-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.detalhes-card {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.detalhes-card p {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.imagem-produto {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+}
+
+.btn-voltar {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 25px;
+  font-size: 15px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-voltar:hover {
+  background-color: #0056b3;
+}
+
+.mensagem {
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.mensagem.erro {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+}

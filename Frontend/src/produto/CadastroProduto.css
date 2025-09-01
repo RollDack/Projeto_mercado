@@ -1,0 +1,91 @@
+.form-container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 400px;
+  margin: 60px auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.form-container:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.form-container input,
+.form-container select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 18px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  transition: border 0.2s ease;
+}
+
+.form-container input:focus,
+.form-container select:focus {
+  border-color: #28a745;
+  outline: none;
+}
+
+.form-container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+  background-color: #218838;
+}
+
+.form-container p {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: bold;
+  color: #155724;
+}
+.mensagem {
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.mensagem.sucesso {
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+.mensagem.erro {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+.mensagem.sucesso::before {
+  content: "✔️ ";
+  margin-right: 5px;
+}
+
+.mensagem.erro::before {
+  content: "❌ ";
+  margin-right: 5px;
+}
+
+
+

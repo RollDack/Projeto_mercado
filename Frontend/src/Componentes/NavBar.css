@@ -1,0 +1,41 @@
+.navbar {
+  background-color: #000000dc; /* Fundo preto */
+  padding: 16px 32px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.navbar h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #f39c12; /* Laranja destaque */
+  letter-spacing: 1px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-links {
+  position: absolute;
+  left: 32px; /* Alinha os links à esquerda */
+}
+
+.nav-links a {
+  margin-right: 20px;
+  color: #1976d2; /* Azul escuro */
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #f39c12; /* Hover laranja */
+  text-decoration: underline;
+}
