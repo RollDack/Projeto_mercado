@@ -1,0 +1,40 @@
+.usuarios-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+.usuarios-lista {
+  list-style: none;
+  padding: 0;
+}
+
+.usuario-item {
+  border: 1px solid #815f5f;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.usuario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.usuario-header span {
+  font-weight: bold;
+}
+
+.usuario-header button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.usuario-detalhes {
+  margin-top: 10px;
+  padding-left: 10px;
+  color: #000000;
+}

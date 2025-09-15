@@ -8,10 +8,10 @@ function CadastroUsuario() {
   const [email, setEmail] = useState('');
   const [celular, setCelular] = useState('');
   const [senha, setSenha] = useState('');
-  const [cnpj, setCnpj] = useState('');
+  const [cpf, setCpf] = useState('');
   const [mensagem, setMensagem] = useState('');
 
-  const navigate = useNavigate(); // ✅ Hook de navegação
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ function CadastroUsuario() {
       email: email,
       celular: celular,
       password: senha,
-      cnpj: cnpj
+      cpf: cpf
     };
 
     const resultado = await cadastrarUsuario(novoUsuario);
@@ -32,7 +32,7 @@ function CadastroUsuario() {
       setEmail('');
       setCelular('');
       setSenha('');
-      setCnpj('');
+      setCpf('');
     } else {
       setMensagem(`Erro: ${resultado.message}`);
     }
@@ -72,15 +72,31 @@ function CadastroUsuario() {
         />
         <input
           type="text"
-          placeholder="CNPJ"
-          value={cnpj}
-          onChange={(e) => setCnpj(e.target.value)}
+          placeholder="CPF"
+          value={cpf}
+          onChange={(e) => setCpf(e.target.value)}
           required
         />
         <button type="submit">Cadastrar</button>
       </form>
 
       {mensagem && <p>{mensagem}</p>}
+
+
+      <button
+        style={{
+          marginTop: "10px",
+          backgroundColor: "#28a745",
+          color: "white",
+          padding: "10px 20px",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer"
+        }}
+        onClick={() => navigate("/usuarios")}
+      >
+        Ver Usuários Cadastrados
+      </button>
 
       <button
         style={{

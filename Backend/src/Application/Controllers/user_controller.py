@@ -10,19 +10,30 @@ user_bp = Blueprint('user', __name__, url_prefix='/api/users')
 def register_user():
     data = request.json
 
-    if not data.get('name') or not data.get('email') or not data.get('password'):
-        return jsonify({"message": "Nome, e-mail e senha são obrigatórios."}), 400
+    # Validação dos campos obrigatórios
+    required_fields = ['name', 'email', 'celular', 'password', 'cpf']
+    for field in required_fields:
+        if not data.get(field):
+            return jsonify({"message": f"O campo '{field}' é obrigatório."}), 400
 
-    existing_user = User.query.filter_by(email=data['email']).first()
-    if existing_user:
+    # Verifica duplicidade de email
+    if User.query.filter_by(email=data['email']).first():
         return jsonify({"message": "Já existe um usuário com este e-mail."}), 400
 
+    # Verifica duplicidade de CPF
+    if User.query.filter_by(cpf=data['cpf']).first():
+        return jsonify({"message": "Já existe um usuário com este CPF."}), 400
+
+    # Gera hash da senha
     hashed_password = generate_password_hash(data['password'])
 
+    # Cria novo usuário
     new_user = User(
         name=data['name'],
         email=data['email'],
+        celular=data['celular'],
         password=hashed_password,
+        cpf=data['cpf'],
         status='Ativo'
     )
 
@@ -36,11 +47,13 @@ def register_user():
 def listar_usuarios():
     users = User.query.all()
     users_list = [{
-        "id": u.id,
-        "name": u.name,
-        "email": u.email,
-        "status": u.status
-    } for u in users]
+    "id": u.id,
+    "name": u.name,
+    "email": u.email,
+    "celular": u.celular,
+    "cpf": u.cpf,
+    "status": u.status
+        } for u in users]
 
     return jsonify(users_list), 200
 

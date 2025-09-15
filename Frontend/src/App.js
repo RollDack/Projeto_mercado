@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CadastroUsuario from './usuario/CadastroUsuario';
+import ListaUsuarios from "./usuario/ListaUsuarios";
 import CadastroProduto from './produto/CadastroProduto';
 import ListarProdutos from './produto/ListarProdutos';
 import EditarProduto from './produto/EditarProduto';
@@ -26,6 +27,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro-usuario" element={<CadastroUsuario />} />
+        <Route path="/usuarios" element={<ListaUsuarios />} />
         <Route path="/cadastro-produto" element={<CadastroProduto />} />
         <Route path="/listar-produtos" element={<ListarProdutos />} />
         <Route path="/editar-produto/:id" element={<EditarProduto />} />
