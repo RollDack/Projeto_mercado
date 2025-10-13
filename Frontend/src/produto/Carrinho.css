@@ -1,0 +1,30 @@
+.carrinho-container {
+  width: 80%;
+  margin: 30px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.carrinho-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.carrinho-container th,
+.carrinho-container td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.carrinho-container th {
+  background-color: #6c63ff;
+  color: white;
+}
+
+.carrinho-container button {
+  margin: 0 5px;
+}

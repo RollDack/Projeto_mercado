@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useCarrinho } from "../context/CarrinhoContext"; // ✅ Contexto do carrinho
 import {
   listarProdutos,
   atualizarProduto,
@@ -11,24 +12,24 @@ import "./ListarProdutos.css";
 function ListarProdutos() {
   const [produtos, setProdutos] = useState([]);
   const [mensagem, setMensagem] = useState("");
+  const { adicionarAoCarrinho } = useCarrinho(); // ✅ usando função do contexto
   const navigate = useNavigate();
 
   useEffect(() => {
     carregarProdutos();
   }, []);
 
-const carregarProdutos = async () => {
-  try {
-    const lista = await listarProdutos();
-    console.log("✅ Lista recebida no componente:", lista);
-    console.log("📏 Tipo de lista:", Array.isArray(lista) ? "Array" : typeof lista);
-    setProdutos(lista);
-  } catch (error) {
-    setMensagem("Erro ao carregar produtos.");
-    console.error(error);
-  }
-};
-
+  const carregarProdutos = async () => {
+    try {
+      const lista = await listarProdutos();
+      console.log("✅ Lista recebida no componente:", lista);
+      console.log("📏 Tipo de lista:", Array.isArray(lista) ? "Array" : typeof lista);
+      setProdutos(lista);
+    } catch (error) {
+      setMensagem("Erro ao carregar produtos.");
+      console.error(error);
+    }
+  };
 
   const handleEditar = (id) => {
     navigate(`/editar-produto/${id}`);
@@ -110,6 +111,22 @@ const carregarProdutos = async () => {
                   >
                     Excluir
                   </button>
+                  {/* ✅ Novo botão de compra (usa o contexto) */}
+                  <button
+                    onClick={() => adicionarAoCarrinho(p)}
+                    style={{
+                      backgroundColor: "#ffa500",
+                      color: "white",
+                      padding: "8px 15px",
+                      border: "none",
+                      borderRadius: "5px",
+                      cursor: "pointer",
+                      marginTop: "5px",
+                      width: "100%"
+                    }}
+                  >
+                    Comprar
+                  </button>
                 </td>
               </tr>
             ))}
@@ -119,6 +136,22 @@ const carregarProdutos = async () => {
 
       <button className="botao-voltar" onClick={() => navigate("/")}>
         Voltar para Início
+      </button>
+
+      {/* ✅ Botão para visualizar carrinho */}
+      <button
+        style={{
+          marginTop: "20px",
+          backgroundColor: "#007bff",
+          color: "white",
+          padding: "10px 20px",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer"
+        }}
+        onClick={() => navigate("/carrinho")}
+      >
+        Ver Carrinho
       </button>
     </div>
   );
