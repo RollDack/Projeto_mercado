@@ -1,24 +1,24 @@
 import React, { createContext, useContext, useState } from "react";
 
-// Criamos o contexto
+
 const CarrinhoContext = createContext();
 
-// Hook para acessar o contexto de forma mais fácil
+
 export function useCarrinho() {
   return useContext(CarrinhoContext);
 }
 
-// Provider que vai "envolver" a aplicação
+
 export function CarrinhoProvider({ children }) {
   const [carrinho, setCarrinho] = useState([]);
 
-  // Adicionar produto ao carrinho
+  
   const adicionarAoCarrinho = (produto) => {
     setCarrinho((prevCarrinho) => {
       const existe = prevCarrinho.find((item) => item.id === produto.id);
 
       if (existe) {
-        // Se já existe no carrinho, aumenta a quantidade comprada
+        
         return prevCarrinho.map((item) =>
           item.id === produto.id
             ? { ...item, quantidadeComprada: item.quantidadeComprada + 1 }
@@ -26,25 +26,25 @@ export function CarrinhoProvider({ children }) {
         );
       }
 
-      // Se não existe, adiciona com quantidadeComprada = 1
+      
       alert(`${produto.nome} foi adicionado ao carrinho!`);
       return [
         ...prevCarrinho,
         {
           ...produto,
-          quantidadeEmEstoque: produto.quantidade, // estoque original do backend
-          quantidadeComprada: 1,                   // começa com 1 no carrinho
+          quantidadeEmEstoque: produto.quantidade, 
+          quantidadeComprada: 1, 
         },
       ];
     });
   };
 
-  // Remover produto do carrinho
+  
   const removerDoCarrinho = (id) => {
     setCarrinho((prev) => prev.filter((item) => item.id !== id));
   };
 
-  // Aumentar quantidade comprada
+  
   const aumentarQuantidade = (id) => {
     setCarrinho((prev) =>
       prev.map((item) =>
@@ -55,7 +55,7 @@ export function CarrinhoProvider({ children }) {
     );
   };
 
-  // Diminuir quantidade comprada
+  
   const diminuirQuantidade = (id) => {
     setCarrinho((prev) =>
       prev.map((item) =>
@@ -66,9 +66,49 @@ export function CarrinhoProvider({ children }) {
     );
   };
 
-  // Limpar carrinho
+  
   const limparCarrinho = () => {
     setCarrinho([]);
+  };
+
+  
+  const finalizarCompra = () => {
+    if (carrinho.length === 0) {
+      alert("Seu carrinho está vazio!");
+      return;
+    }
+
+    const novaVenda = {
+      id: Date.now(),
+      data: new Date().toLocaleString("pt-BR"),
+      itens: carrinho,
+      total: carrinho.reduce(
+        (acc, item) => acc + item.preco * item.quantidadeComprada,
+        0
+      ),
+      status: "Pendente",
+    };
+
+    
+    const vendasAntigas = JSON.parse(localStorage.getItem("vendas")) || [];
+    const vendasAtualizadas = [...vendasAntigas, novaVenda];
+
+    
+    localStorage.setItem("vendas", JSON.stringify(vendasAtualizadas));
+
+    alert("✅ Compra finalizada! Seu pedido está pendente.");
+    limparCarrinho();
+
+    
+    setTimeout(() => {
+      const vendasAtualizadas = JSON.parse(localStorage.getItem("vendas")) || [];
+      const vendasCompletas = vendasAtualizadas.map((venda) =>
+        venda.id === novaVenda.id && venda.status === "Pendente"
+          ? { ...venda, status: "Concluído" }
+          : venda
+      );
+      localStorage.setItem("vendas", JSON.stringify(vendasCompletas));
+    }, 15000);
   };
 
   return (
@@ -80,6 +120,7 @@ export function CarrinhoProvider({ children }) {
         aumentarQuantidade,
         diminuirQuantidade,
         limparCarrinho,
+        finalizarCompra, 
       }}
     >
       {children}

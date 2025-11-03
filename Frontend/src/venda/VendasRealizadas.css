@@ -1,56 +1,87 @@
 .vendas-container {
-  max-width: 900px;
-  margin: 40px auto;
+  background-color: #f5f7fb;
   padding: 30px;
-  background-color: white;
-  border-radius: 16px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  max-width: 900px;
+  margin: 50px auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
 .vendas-container h2 {
+  color: #333;
   margin-bottom: 20px;
-  color: #4a148c;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 th, td {
-  padding: 10px;
-  border: 1px solid #ddd;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
 }
 
 th {
-  background-color: #6a1b9a;
+  background-color: #6c63ff;
   color: white;
 }
 
-tfoot td {
-  background-color: #fce4ec;
+.status-pendente {
+  color: #ff9800;
   font-weight: bold;
 }
 
-.erro {
-  color: red;
-  margin-bottom: 15px;
+.status-concluido {
+  color: #4caf50;
+  font-weight: bold;
 }
 
-button {
-  margin-top: 25px;
-  background-color: #2e7d32;
-  color: white;
-  padding: 10px 22px;
-  font-size: 16px;
+.status-cancelado {
+  color: #f44336;
+  font-weight: bold;
+}
+
+.btn-detalhes,
+.btn-cancelar {
   border: none;
-  border-radius: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  color: white;
+  margin-right: 5px;
 }
 
-button:hover {
-  background-color: #1b5e20;
+.btn-detalhes {
+  background-color: #2196f3;
+}
+
+.btn-cancelar {
+  background-color: #f44336;
+}
+
+.itens-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.itens-lista li {
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.botao-voltar {
+  margin-top: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }

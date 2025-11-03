@@ -14,7 +14,7 @@ function HomePage() {
         <button onClick={() => navigate("/listar-produtos")} style={botaoStyle}>Listar Produtos</button>
         <button onClick={() => navigate("/cadastro-usuario")} style={botaoStyle}>Cadastro de Usuários</button>
         
-        <button onClick={() => navigate("/vendas-realizadas")} style={botaoStyle}>Vendas Realizadas</button>
+        <button onClick={() => navigate("/vendas")} style={botaoStyle}>Compras Realizadas</button>
       </div>
     </div>
   );

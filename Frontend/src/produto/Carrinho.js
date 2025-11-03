@@ -15,29 +15,55 @@ function Carrinho() {
 };
 
 
-   const finalizarCompra = async () => {
+      const finalizarCompra = () => {
         if (carrinho.length === 0) {
-            alert("Seu carrinho está vazio!");
-            return;
+          alert("Seu carrinho está vazio!");
+          return;
         }
 
-        try {
-            for (const item of carrinho) {
-            const novoProduto = {
-                ...item,
-                quantidade: item.quantidadeEmEstoque - item.quantidadeComprada, 
-            };
-            await atualizarProduto(item.id, novoProduto);
-            }
-
-            alert("✅ Compra finalizada com sucesso!");
-            limparCarrinho();
-            navigate("/listar-produtos");
-        } catch (error) {
-            console.error("Erro ao atualizar estoque:", error);
-            alert("❌ Erro ao finalizar compra. Tente novamente.");
-        }
+        const novoPedido = {
+          id: Date.now(),
+          data: new Date().toLocaleString("pt-BR"),
+          itens: carrinho,
+          total: carrinho.reduce((acc, item) => acc + item.preco * item.quantidadeComprada, 0),
+          status: "Pendente"
         };
+
+        const pedidosAntigos = JSON.parse(localStorage.getItem("vendas")) || [];
+        const pedidosAtualizados = [...pedidosAntigos, novoPedido];
+        localStorage.setItem("vendas", JSON.stringify(pedidosAtualizados));
+
+        alert("✅ Compra finalizada com sucesso! Seu pedido está pendente.");
+        
+        carrinho.forEach(async (item) => {
+          try {
+            const novaQuantidade = item.quantidadeEmEstoque - item.quantidadeComprada;
+            await atualizarProduto(item.id, {
+              quantidade: novaQuantidade >= 0 ? novaQuantidade : 0,
+            });
+          } catch (error) {
+            console.error("Erro ao atualizar estoque do produto:", item.nome, error);
+          }
+        }); 
+
+        limparCarrinho();
+
+        navigate("/vendas");
+
+        
+        setTimeout(() => {
+          const vendasAtuais = JSON.parse(localStorage.getItem("vendas")) || [];
+
+          const atualizados = vendasAtuais.map((p) => {
+            if (p.id === novoPedido.id && p.status === "Pendente") {
+              return { ...p, status: "Concluído" };
+            }
+            return p;
+          });
+
+          localStorage.setItem("vendas", JSON.stringify(atualizados));
+        }, 10000);
+      };
 
 
 

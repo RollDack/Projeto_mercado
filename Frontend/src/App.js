@@ -6,7 +6,7 @@ import ListarProdutos from './produto/ListarProdutos';
 import EditarProduto from './produto/EditarProduto';
 import Carrinho from "./produto/Carrinho";
 import Login from './usuario/Login';
-import HomePage from './HomePage'; // <-- nova Home
+import HomePage from './HomePage'; 
 import VendaProduto from "./venda/VendaProduto";
 import DetalhesProduto from './produto/DetalhesProduto';
 import ListarVendas from "./venda/ListarVendas";
@@ -38,7 +38,7 @@ function App() {
             <Route path="/venda" element={<VendaProduto />} />
             <Route path="/listar-vendas" element={<ListarVendas />} />
             <Route path="/produtos/:id" element={<DetalhesProduto />} />
-            <Route path="/vendas-realizadas" element={<VendasRealizadas />} />
+            <Route path="/vendas" element={<VendasRealizadas />} />
             <Route path="/ativar-conta" element={<AtivarConta />} />
           </Routes>
         </Router>
