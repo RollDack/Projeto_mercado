@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from src.config.data_base import db
 from src.Infrastructure.Model.user import User
 
@@ -42,18 +42,36 @@ def register_user():
 
     return jsonify({"message": "Usuário registrado com sucesso!"}), 201
 
+# 📌 Login de usuário
+@user_bp.route('/login', methods=['POST'])
+def login():
+    data = request.json
+    email = data.get("email")
+    password = data.get("password")
+
+    user = User.query.filter_by(email=email).first()
+    if not user or not check_password_hash(user.password, password):
+        return jsonify({"message": "E-mail ou senha incorretos."}), 401
+
+    return jsonify({
+        "id": user.id,
+        "name": user.name,
+        "email": user.email,
+        "status": user.status
+    }), 200
+
 # 📌 Listar usuários
 @user_bp.route('/', methods=['GET'])
 def listar_usuarios():
     users = User.query.all()
     users_list = [{
-    "id": u.id,
-    "name": u.name,
-    "email": u.email,
-    "celular": u.celular,
-    "cpf": u.cpf,
-    "status": u.status
-        } for u in users]
+        "id": u.id,
+        "name": u.name,
+        "email": u.email,
+        "celular": u.celular,
+        "cpf": u.cpf,
+        "status": u.status
+    } for u in users]
 
     return jsonify(users_list), 200
 

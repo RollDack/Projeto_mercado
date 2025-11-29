@@ -1,117 +1,88 @@
-import React, { useState } from 'react';
-import './CadastroUsuario.css';
-import { cadastrarUsuario } from '../services/usuarioService';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { cadastrarUsuario } from "../services/usuarioService";
+import { useNavigate } from "react-router-dom";
+import "./CadastroUsuario.css";
 
 function CadastroUsuario() {
-  const [nome, setNome] = useState('');
-  const [email, setEmail] = useState('');
-  const [celular, setCelular] = useState('');
-  const [senha, setSenha] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [mensagem, setMensagem] = useState('');
+  const [usuario, setUsuario] = useState({
+    name: "",
+    email: "",
+    celular: "",
+    password: "",
+    cpf: "",
+  });
 
+  const [mensagem, setMensagem] = useState("");
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setUsuario({ ...usuario, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const novoUsuario = {
-      name: nome,
-      email: email,
-      celular: celular,
-      password: senha,
-      cpf: cpf
-    };
-
-    const resultado = await cadastrarUsuario(novoUsuario);
+    const resultado = await cadastrarUsuario(usuario);
+    setMensagem(resultado.message);
 
     if (resultado.success) {
-      setMensagem("Usuário cadastrado com sucesso!");
-      setNome('');
-      setEmail('');
-      setCelular('');
-      setSenha('');
-      setCpf('');
-    } else {
-      setMensagem(`Erro: ${resultado.message}`);
+      setTimeout(() => navigate("/login"), 1500);
     }
   };
 
   return (
-    <div className="form-container">
+    <div className="cadastro-container">
       <h2>Cadastro de Usuário</h2>
+
       <form onSubmit={handleSubmit}>
         <input
           type="text"
+          name="name"
           placeholder="Nome"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
+          value={usuario.name}
+          onChange={handleChange}
           required
         />
         <input
           type="email"
+          name="email"
           placeholder="E-mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={usuario.email}
+          onChange={handleChange}
           required
         />
         <input
           type="text"
+          name="celular"
           placeholder="Celular"
-          value={celular}
-          onChange={(e) => setCelular(e.target.value)}
-          required
+          value={usuario.celular}
+          onChange={handleChange}
         />
         <input
           type="password"
+          name="password"
           placeholder="Senha"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
+          value={usuario.password}
+          onChange={handleChange}
           required
         />
         <input
           type="text"
+          name="cpf"
           placeholder="CPF"
-          value={cpf}
-          onChange={(e) => setCpf(e.target.value)}
-          required
+          value={usuario.cpf}
+          onChange={handleChange}
         />
+
         <button type="submit">Cadastrar</button>
       </form>
 
-      {mensagem && <p>{mensagem}</p>}
+      {mensagem && <p className="mensagem">{mensagem}</p>}
 
-
-      <button
-        style={{
-          marginTop: "10px",
-          backgroundColor: "#28a745",
-          color: "white",
-          padding: "10px 20px",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer"
-        }}
-        onClick={() => navigate("/usuarios")}
-      >
+      <button onClick={() => navigate("/usuarios")}>
         Ver Usuários Cadastrados
       </button>
-
-      <button
-        style={{
-          marginTop: "10px",
-          backgroundColor: "#6c63ff",
-          color: "white",
-          padding: "10px 20px",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer"
-        }}
-        onClick={() => navigate("/")}
-      >
-        Voltar para Início
-      </button>
+      <button onClick={() => navigate("/")}>Voltar</button>
     </div>
   );
 }

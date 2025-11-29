@@ -1,31 +1,40 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Correto
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import { login } from "../services/authService";
 
 function Login() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [senha, setSenha] = useState("");
   const [mensagem, setMensagem] = useState("");
-  const navigate = useNavigate(); // ✅ Inicializa o useNavigate
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const resultado = await login(email, password);
+    try {
+      const response = await fetch("http://127.0.0.1:5000/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password: senha }),
+      });
 
-    if (resultado.success) {
-      setMensagem("Login realizado com sucesso!");
-      setTimeout(() => {
-        navigate("/venda"); // ✅ Redireciona após login
-      }, 1000);
-    } else {
-      setMensagem(`Erro: ${resultado.message}`);
+      const resultado = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("usuarioLogado", JSON.stringify(resultado));
+        setMensagem(`Bem-vindo, ${resultado.name}!`);
+        setTimeout(() => navigate("/"), 1500);
+      } else {
+        setMensagem(resultado.message);
+      }
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      setMensagem("Erro ao conectar com o servidor.");
     }
   };
 
   return (
-    <div className="form-container">
+    <div className="login-container">
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <input
@@ -38,31 +47,17 @@ function Login() {
         <input
           type="password"
           placeholder="Senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
           required
         />
         <button type="submit">Entrar</button>
       </form>
 
-      {/* Botão de Ativação */}
-      <button
-        type="button"
-        onClick={() => navigate("/ativar-conta")}
-        style={{
-          marginTop: "10px",
-          backgroundColor: "#6c63ff",
-          color: "white",
-          padding: "10px",
-          border: "none",
-          borderRadius: "4px",
-          cursor: "pointer",
-        }}
-      >
-        Ativar Conta
-      </button>
+      {mensagem && <p className="mensagem">{mensagem}</p>}
 
-      {mensagem && <p>{mensagem}</p>}
+      <button onClick={() => navigate("/ativar-conta")}>Ativar Conta</button>
+      <button onClick={() => navigate("/")}>Voltar</button>
     </div>
   );
 }
