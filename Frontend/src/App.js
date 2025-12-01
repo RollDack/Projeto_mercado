@@ -13,7 +13,10 @@ import ListarVendas from "./venda/ListarVendas";
 import VendasRealizadas from "./venda/VendasRealizadas";
 import AtivarConta from "./usuario/AtivarConta";
 import { CarrinhoProvider } from "./context/CarrinhoContext";
-
+import PerfilUsuario from "./usuario/PerfilUsuario";
+import EditarPerfil from "./usuario/EditarPerfil";
+import AlterarSenha from "./usuario/AlterarSenha";
+import MinhasCompras from "./usuario/MinhasCompras";
 
 
 
@@ -40,6 +43,10 @@ function App() {
             <Route path="/produtos/:id" element={<DetalhesProduto />} />
             <Route path="/vendas" element={<VendasRealizadas />} />
             <Route path="/ativar-conta" element={<AtivarConta />} />
+            <Route path="/perfil" element={<PerfilUsuario />} />
+            <Route path="/editar-perfil" element={<EditarPerfil />} />
+            <Route path="/alterar-senha" element={<AlterarSenha />} />
+            <Route path="/minhas-compras" element={<MinhasCompras />} />
           </Routes>
         </Router>
     </CarrinhoProvider>

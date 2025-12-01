@@ -1,0 +1,61 @@
+.editar-perfil-container {
+  width: 400px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.foto-area {
+  margin-bottom: 15px;
+}
+
+.foto-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.btn-foto input {
+  display: none;
+}
+
+.btn-foto {
+  background: #6c63ff;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.form-editar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-salvar {
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-voltar {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.mensagem {
+  margin-top: 10px;
+  font-weight: bold;
+  color: green;
+}

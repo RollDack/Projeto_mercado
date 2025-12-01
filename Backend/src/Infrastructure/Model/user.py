@@ -10,11 +10,15 @@ class User(db.Model):
     password = db.Column(db.String(255), nullable=False)
     cpf = db.Column(db.String(14), unique=True, nullable=False)  # ✅ trocamos cnpj por cpf
     status = db.Column(db.String(20), default="Ativo")
+    foto = db.Column(db.String(255), nullable=True)
 
     def to_dict(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "email": self.email,
-            "celular": self.celular  
-        }
+     return {
+        "id": self.id,
+        "name": self.name,
+        "email": self.email,
+        "celular": self.celular,
+        "cpf": self.cpf,
+        "status": self.status,
+        "foto": self.foto
+    }

@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from src.config.data_base import db
 from src.Infrastructure.Model.user import User
+import os
 
 user_bp = Blueprint('user', __name__, url_prefix='/api/users')
 
@@ -53,12 +54,17 @@ def login():
     if not user or not check_password_hash(user.password, password):
         return jsonify({"message": "E-mail ou senha incorretos."}), 401
 
+    # Retorna todos os dados necessários para o frontend funcionar
     return jsonify({
         "id": user.id,
         "name": user.name,
         "email": user.email,
-        "status": user.status
+        "celular": user.celular,
+        "cpf": user.cpf,
+        "status": user.status,
+        "fotoPerfil": getattr(user, "foto", None)
     }), 200
+
 
 # 📌 Listar usuários
 @user_bp.route('/', methods=['GET'])
@@ -96,14 +102,67 @@ def atualizar_usuario(id):
     if not user:
         return jsonify({"message": "Usuário não encontrado."}), 404
 
-    data = request.json
+    data = request.form  # <- importante quando usamos multipart/form-data
+
+    # Atualizar campos básicos
     user.name = data.get("name", user.name)
     user.email = data.get("email", user.email)
+    user.celular = data.get("celular", user.celular)
+
+    # Atualizar senha caso enviada
     if data.get("password"):
         user.password = generate_password_hash(data["password"])
 
+    # 📌 Atualizar FOTO DE PERFIL
+    foto = request.files.get("fotoPerfil")
+    if foto:
+        pasta_upload = os.path.join(os.getcwd(), "src", "uploads", "usuarios")
+        os.makedirs(pasta_upload, exist_ok=True)
+
+        nome_arquivo = f"{user.id}.jpg"
+        caminho = os.path.join(pasta_upload, nome_arquivo)
+        foto.save(caminho)
+
+        # Caminho salvo no banco deve incluir a pasta correta
+        user.foto = f"uploads/usuarios/{nome_arquivo}"
+
     db.session.commit()
-    return jsonify({"message": f"Usuário '{user.name}' atualizado com sucesso!"}), 200
+
+    return jsonify({
+        "message": "Usuário atualizado com sucesso!",
+        "user": {
+            "id": user.id,
+            "name": user.name,
+            "email": user.email,
+            "celular": user.celular,
+            "foto": user.foto  # <- devolve caminho completo
+        }
+    }), 200
+
+
+
+
+
+# 📌 Alterar senha do usuário
+@user_bp.route('/<int:id>/senha', methods=['PUT'])
+def alterar_senha(id):
+    user = User.query.get(id)
+    if not user:
+        return jsonify({"message": "Usuário não encontrado."}), 404
+
+    data = request.json
+    senha_atual = data.get("senhaAtual")
+    nova_senha = data.get("novaSenha")
+
+    # Verifica senha atual
+    if not check_password_hash(user.password, senha_atual):
+        return jsonify({"message": "Senha atual incorreta."}), 400
+
+    # Atualiza senha
+    user.password = generate_password_hash(nova_senha)
+    db.session.commit()
+
+    return jsonify({"message": "Senha alterada com sucesso!"}), 200
 
 # 📌 Excluir usuário
 @user_bp.route('/<int:id>', methods=['DELETE'])

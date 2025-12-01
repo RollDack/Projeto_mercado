@@ -1,64 +1,67 @@
-// src/HomePage.js
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./HomePage.css";
 
 function HomePage() {
+  const [usuario, setUsuario] = useState(null);
   const navigate = useNavigate();
+
+  // Carregar login salvo
+  useEffect(() => {
+    const user = localStorage.getItem("usuarioLogado");
+    if (user) {
+      setUsuario(JSON.parse(user));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("usuarioLogado");
+    setUsuario(null);
+    navigate("/");
+  };
 
   return (
     <div>
-      {/* Navbar */}
-      <nav style={navbarStyle}>
-        <h2 style={{ color: "white", margin: 0 }}>MERCADO</h2>
-        <div style={linksStyle}>
-          <button onClick={() => navigate("/login")} style={linkButton}>Login</button>
-          <button onClick={() => navigate("/cadastro-produto")} style={linkButton}>Cadastro de Produtos</button>
-          <button onClick={() => navigate("/listar-produtos")} style={linkButton}>Listar Produtos</button>
-          <button onClick={() => navigate("/cadastro-usuario")} style={linkButton}>Cadastro de Usuários</button>
-          <button onClick={() => navigate("/vendas")} style={linkButton}>Compras Realizadas</button>
-        </div>
+      {/* NAVBAR */}
+      <nav className="navbar">
+        <div className="navbar-logo">MERCADO</div>
+
+        <ul className="navbar-links">
+
+          {!usuario ? (
+            <>
+              <li><Link to="/login">Login</Link></li>
+              <li><Link to="/cadastro-produto">Cadastro de Produtos</Link></li>
+              <li><Link to="/listar-produtos">Listar Produtos</Link></li>
+              <li><Link to="/cadastro-usuario">Cadastro de Usuários</Link></li>
+              <li><Link to="/vendas">Compras Realizadas</Link></li>
+            </>
+          ) : (
+            <>
+              <li><Link to="/perfil">Perfil</Link></li>
+              <li><Link to="/listar-produtos">Listar Produtos</Link></li>
+              <li><Link to="/vendas">Compras Realizadas</Link></li>
+              <li>
+                <button 
+                  onClick={handleLogout} 
+                  className="logout-btn"
+                >
+                  Sair
+                </button>
+              </li>
+            </>
+          )}
+
+        </ul>
       </nav>
 
-      {/* Conteúdo principal */}
-      <div style={contentStyle}>
+      {/* CONTEÚDO DA HOME */}
+      <div className="homepage-container">
         <h1>Bem-vindo ao Mercado!</h1>
         <p>Use o menu acima para navegar pelo sistema.</p>
       </div>
     </div>
   );
 }
-
-// 🎨 Estilos
-const navbarStyle = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  backgroundColor: "#1e90ff",
-  padding: "15px 30px",
-  position: "fixed",
-  top: 0,
-  left: 0,
-  right: 0,
-  zIndex: 1000,
-};
-
-const linksStyle = {
-  display: "flex",
-  gap: "15px",
-};
-
-const linkButton = {
-  backgroundColor: "transparent",
-  border: "none",
-  color: "white",
-  fontWeight: "bold",
-  fontSize: "16px",
-  cursor: "pointer",
-};
-
-const contentStyle = {
-  marginTop: "100px",
-  textAlign: "center",
-};
 
 export default HomePage;

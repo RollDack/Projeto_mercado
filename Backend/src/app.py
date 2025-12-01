@@ -26,6 +26,7 @@ def servir_imagem(filename):
     diretorio = os.path.join(os.getcwd(), "src", "uploads")
     return send_from_directory(diretorio, filename)
 
+
 # ✅ Conecta com banco de dados
 configure_database(app)
 

@@ -1,0 +1,55 @@
+.perfil-container {
+  width: 400px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.perfil-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.perfil-foto {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.perfil-card p {
+  text-align: left;
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.perfil-botoes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-editar,
+.btn-senha,
+.btn-voltar {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+}
+
+.btn-editar {
+  background-color: #6c63ff;
+}
+
+.btn-senha {
+  background-color: #007bff;
+}
+
+.btn-voltar {
+  background-color: #6c757d;
+}

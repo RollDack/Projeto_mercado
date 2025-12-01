@@ -21,9 +21,13 @@ function Login() {
       const resultado = await response.json();
 
       if (response.ok) {
+        // Guarda os dados do usuário logado
         localStorage.setItem("usuarioLogado", JSON.stringify(resultado));
+
         setMensagem(`Bem-vindo, ${resultado.name}!`);
-        setTimeout(() => navigate("/"), 1500);
+
+        // Redireciona para a HOME em vez de /perfil
+        setTimeout(() => navigate("/"), 1000);
       } else {
         setMensagem(resultado.message);
       }
@@ -36,6 +40,7 @@ function Login() {
   return (
     <div className="login-container">
       <h2>Login</h2>
+
       <form onSubmit={handleLogin}>
         <input
           type="email"
@@ -44,6 +49,7 @@ function Login() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+
         <input
           type="password"
           placeholder="Senha"
@@ -51,6 +57,7 @@ function Login() {
           onChange={(e) => setSenha(e.target.value)}
           required
         />
+
         <button type="submit">Entrar</button>
       </form>
 

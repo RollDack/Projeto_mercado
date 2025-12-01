@@ -1,0 +1,50 @@
+.alterar-senha-container {
+  width: 400px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.form-senha {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-senha label {
+  text-align: left;
+  font-weight: bold;
+}
+
+.form-senha input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.btn-alterar {
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-voltar {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.mensagem {
+  margin-top: 15px;
+  font-weight: bold;
+  color: green;
+}
